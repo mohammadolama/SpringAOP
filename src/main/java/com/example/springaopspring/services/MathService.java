@@ -1,7 +1,7 @@
 package com.example.springaopspring.services;
 
-import com.example.springaopspring.models.dto.RequestBodyDto;
-import com.example.springaopspring.models.dto.SuccessFulResponseDto;
+import com.example.springaopspring.models.dto.request.RequestBodyDto;
+import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
 
 public interface MathService {
 

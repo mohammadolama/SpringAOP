@@ -1,6 +1,6 @@
 package com.example.springaopspring.dao.mapper;
 
-import com.example.springaopspring.models.dto.RequestBodyDto;
+import com.example.springaopspring.models.dto.request.RequestBodyDto;
 import com.example.springaopspring.models.entities.RequestBodyEntity;
 
 public class RequestMapper implements DomainMapper<RequestBodyDto , RequestBodyEntity> {

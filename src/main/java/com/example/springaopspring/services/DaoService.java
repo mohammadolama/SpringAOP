@@ -1,8 +1,9 @@
 package com.example.springaopspring.services;
 
-import com.example.springaopspring.models.dto.RequestBodyDto;
-import com.example.springaopspring.models.dto.Response;
-import com.example.springaopspring.models.dto.SuccessFulResponseDto;
+import com.example.springaopspring.models.dto.Message;
+import com.example.springaopspring.models.dto.request.RequestBodyDto;
+import com.example.springaopspring.models.dto.response.Response;
+import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
 
 public interface DaoService {
 
@@ -10,5 +11,7 @@ public interface DaoService {
 
     public int saveResponse(SuccessFulResponseDto responseBodyDto, int i);
 
-    Response getResponseWithId(int id);
+    Message getResponseWithId(int id);
+
+    Message getRequestWithId(int id);
 }

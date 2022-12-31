@@ -1,8 +1,9 @@
 package com.example.springaopspring.controllers;
 
-import com.example.springaopspring.models.dto.RequestBodyDto;
-import com.example.springaopspring.models.dto.Response;
-import com.example.springaopspring.models.dto.SuccessFulResponseDto;
+import com.example.springaopspring.models.dto.Message;
+import com.example.springaopspring.models.dto.request.RequestBodyDto;
+import com.example.springaopspring.models.dto.response.Response;
+import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
 import com.example.springaopspring.services.DaoService;
 import com.example.springaopspring.services.MathService;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,13 @@ public class MathematicsController {
         return mathService.doMath(requestBodyDto);
     }
 
-    @GetMapping("api/v1/getResultWithId")
-    public Response getWithId(int id){
+    @GetMapping("api/v1/getResultById")
+    public Message getResponseById(int id){
         return daoService.getResponseWithId(id);
+    }
+
+    @GetMapping("api/v1/getRequestById")
+    public Message getRequestById(int id){
+        return daoService.getRequestWithId(id);
     }
 }

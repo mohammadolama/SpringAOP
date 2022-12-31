@@ -1,10 +1,11 @@
-package com.example.springaopspring.models.dto;
+package com.example.springaopspring.models.dto.response;
 
 
+import com.example.springaopspring.models.dto.Message;
 import lombok.Data;
 
 @Data
-public abstract class Response {
+public abstract class Response extends Message {
 
     int requestId;
     String status;

@@ -1,7 +1,7 @@
 package com.example.springaopspring.services.impl;
 
-import com.example.springaopspring.models.dto.RequestBodyDto;
-import com.example.springaopspring.models.dto.SuccessFulResponseDto;
+import com.example.springaopspring.models.dto.request.RequestBodyDto;
+import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
 import com.example.springaopspring.services.DaoService;
 import com.example.springaopspring.services.MathService;
 import org.springframework.stereotype.Service;

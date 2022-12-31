@@ -1,6 +1,6 @@
 package com.example.springaopspring.dao.mapper;
 
-import com.example.springaopspring.models.dto.SuccessFulResponseDto;
+import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
 import com.example.springaopspring.models.entities.ResponseBodyEntity;
 
 public class ResponseMapper implements DomainMapper<SuccessFulResponseDto, ResponseBodyEntity> {

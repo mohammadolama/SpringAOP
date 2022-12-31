@@ -3,10 +3,11 @@ package com.example.springaopspring.services.impl;
 import com.example.springaopspring.dao.PostgresRequestsRepository;
 import com.example.springaopspring.dao.PostgresResponseRepository;
 import com.example.springaopspring.dao.mapper.DomainMapper;
-import com.example.springaopspring.models.dto.ErrorResponseDto;
-import com.example.springaopspring.models.dto.RequestBodyDto;
-import com.example.springaopspring.models.dto.Response;
-import com.example.springaopspring.models.dto.SuccessFulResponseDto;
+import com.example.springaopspring.models.dto.ErrorMessage;
+import com.example.springaopspring.models.dto.Message;
+import com.example.springaopspring.models.dto.request.RequestBodyDto;
+import com.example.springaopspring.models.dto.response.Response;
+import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
 import com.example.springaopspring.models.entities.RequestBodyEntity;
 import com.example.springaopspring.models.entities.ResponseBodyEntity;
 import com.example.springaopspring.services.DaoService;
@@ -48,14 +49,23 @@ public class PostgresqlDaoService implements DaoService {
     }
 
     @Override
-    public Response getResponseWithId(int id) {
+    public Message getResponseWithId(int id) {
         Optional<ResponseBodyEntity> entity = responseRepository.findById(id);
 
         if (entity.isEmpty()){
-            return new ErrorResponseDto(id , "NOT FOUND" , String.format("Response with id %d does not exist." , id));
+            return new ErrorMessage("NOT FOUND" , String.format("Response with id %d does not exist." , id));
         }else {
             return responseMapper.mapFromDomainModel(entity.get());
 
         }
+    }
+
+    @Override
+    public Message getRequestWithId(int id) {
+        Optional<RequestBodyEntity> entity = requestsRepository.findById(id);
+        if (entity.isEmpty()){
+            return new ErrorMessage("NOT FOUND" , String.format("Request with id %d does not exist." , id));
+        }
+        return requestMapper.mapFromDomainModel(entity.get());
     }
 }
