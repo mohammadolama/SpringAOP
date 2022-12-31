@@ -1,11 +1,11 @@
 package com.example.springaopspring.dao.mapper;
 
-import com.example.springaopspring.models.dto.ResponseBodyDto;
+import com.example.springaopspring.models.dto.SuccessFulResponseDto;
 import com.example.springaopspring.models.entities.ResponseBodyEntity;
 
-public class ResponseMapper implements DomainMapper<ResponseBodyDto , ResponseBodyEntity> {
+public class ResponseMapper implements DomainMapper<SuccessFulResponseDto, ResponseBodyEntity> {
     @Override
-    public ResponseBodyEntity mapToDomainModel(ResponseBodyDto responseBodyDto) {
+    public ResponseBodyEntity mapToDomainModel(SuccessFulResponseDto responseBodyDto) {
         ResponseBodyEntity responseBodyEntity = new ResponseBodyEntity();
         responseBodyEntity.setMessage(responseBodyDto.getMessage());
         responseBodyEntity.setStatus(responseBodyDto.getStatus());
@@ -14,8 +14,8 @@ public class ResponseMapper implements DomainMapper<ResponseBodyDto , ResponseBo
     }
 
     @Override
-    public ResponseBodyDto mapFromDomainModel(ResponseBodyEntity responseBodyEntity) {
-        ResponseBodyDto responseBodyDto = new ResponseBodyDto();
+    public SuccessFulResponseDto mapFromDomainModel(ResponseBodyEntity responseBodyEntity) {
+        SuccessFulResponseDto responseBodyDto = new SuccessFulResponseDto();
         responseBodyDto.setResponseId(responseBodyEntity.getId());
         responseBodyDto.setResult(responseBodyEntity.getResult());
         responseBodyDto.setMessage(responseBodyEntity.getMessage());

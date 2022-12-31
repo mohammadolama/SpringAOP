@@ -1,12 +1,10 @@
 package com.example.springaopspring.controllers;
 
 import com.example.springaopspring.models.dto.RequestBodyDto;
-import com.example.springaopspring.models.dto.ResponseBodyDto;
-import com.example.springaopspring.models.entities.RequestBodyEntity;
-import com.example.springaopspring.models.entities.ResponseBodyEntity;
+import com.example.springaopspring.models.dto.Response;
+import com.example.springaopspring.models.dto.SuccessFulResponseDto;
+import com.example.springaopspring.services.DaoService;
 import com.example.springaopspring.services.MathService;
-import com.example.springaopspring.services.impl.BasicMathServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,17 +13,20 @@ public class MathematicsController {
 
     private final MathService mathService;
 
-    public MathematicsController(MathService mathService) {
+    private final DaoService daoService;
+
+    public MathematicsController(MathService mathService, DaoService daoService) {
         this.mathService = mathService;
+        this.daoService = daoService;
     }
 
     @PostMapping("api/v1/doMath")
-    public ResponseBodyDto doMath(@RequestBody RequestBodyDto requestBodyDto){
+    public SuccessFulResponseDto doMath(@RequestBody RequestBodyDto requestBodyDto){
         return mathService.doMath(requestBodyDto);
     }
 
     @GetMapping("api/v1/getResultWithId")
-    public ResponseBodyDto getWithId(int id){
-        return mathService.getWithId(id);
+    public Response getWithId(int id){
+        return daoService.getResponseWithId(id);
     }
 }

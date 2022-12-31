@@ -3,8 +3,10 @@ package com.example.springaopspring.services.impl;
 import com.example.springaopspring.dao.PostgresRequestsRepository;
 import com.example.springaopspring.dao.PostgresResponseRepository;
 import com.example.springaopspring.dao.mapper.DomainMapper;
+import com.example.springaopspring.models.dto.ErrorResponseDto;
 import com.example.springaopspring.models.dto.RequestBodyDto;
-import com.example.springaopspring.models.dto.ResponseBodyDto;
+import com.example.springaopspring.models.dto.Response;
+import com.example.springaopspring.models.dto.SuccessFulResponseDto;
 import com.example.springaopspring.models.entities.RequestBodyEntity;
 import com.example.springaopspring.models.entities.ResponseBodyEntity;
 import com.example.springaopspring.services.DaoService;
@@ -21,9 +23,9 @@ public class PostgresqlDaoService implements DaoService {
 
     private final DomainMapper<RequestBodyDto , RequestBodyEntity> requestMapper;
 
-    private final DomainMapper<ResponseBodyDto , ResponseBodyEntity> responseMapper;
+    private final DomainMapper<SuccessFulResponseDto, ResponseBodyEntity> responseMapper;
 
-    public PostgresqlDaoService(PostgresRequestsRepository requestsRepository, PostgresResponseRepository responseRepository, DomainMapper<RequestBodyDto, RequestBodyEntity> requestMapper, DomainMapper<ResponseBodyDto, ResponseBodyEntity> responseMapper) {
+    public PostgresqlDaoService(PostgresRequestsRepository requestsRepository, PostgresResponseRepository responseRepository, DomainMapper<RequestBodyDto, RequestBodyEntity> requestMapper, DomainMapper<SuccessFulResponseDto, ResponseBodyEntity> responseMapper) {
         this.requestsRepository = requestsRepository;
         this.responseRepository = responseRepository;
         this.requestMapper = requestMapper;
@@ -37,7 +39,7 @@ public class PostgresqlDaoService implements DaoService {
     }
 
     @Override
-    public int saveResponse(ResponseBodyDto responseBodyDto, int i) {
+    public int saveResponse(SuccessFulResponseDto responseBodyDto, int i) {
         ResponseBodyEntity responseBodyEntity = responseMapper.mapToDomainModel(responseBodyDto);
         responseBodyEntity.setRequestId(i);
         ResponseBodyEntity save = responseRepository.save(responseBodyEntity);
@@ -46,11 +48,11 @@ public class PostgresqlDaoService implements DaoService {
     }
 
     @Override
-    public ResponseBodyDto getResponseWithId(int id) {
+    public Response getResponseWithId(int id) {
         Optional<ResponseBodyEntity> entity = responseRepository.findById(id);
 
         if (entity.isEmpty()){
-            return null;
+            return new ErrorResponseDto(id , "NOT FOUND" , String.format("Response with id %d does not exist." , id));
         }else {
             return responseMapper.mapFromDomainModel(entity.get());
 

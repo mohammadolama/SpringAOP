@@ -1,10 +1,9 @@
 package com.example.springaopspring.services.impl;
 
 import com.example.springaopspring.models.dto.RequestBodyDto;
-import com.example.springaopspring.models.dto.ResponseBodyDto;
+import com.example.springaopspring.models.dto.SuccessFulResponseDto;
 import com.example.springaopspring.services.DaoService;
 import com.example.springaopspring.services.MathService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,8 +22,8 @@ public class BasicMathServiceImpl implements MathService {
         this.daoService = daoService;
     }
 
-    public ResponseBodyDto doMath(RequestBodyDto requestBodyDto) {
-        ResponseBodyDto responseBodyDto = new ResponseBodyDto();
+    public SuccessFulResponseDto doMath(RequestBodyDto requestBodyDto) {
+        SuccessFulResponseDto responseBodyDto = new SuccessFulResponseDto();
 
         if (possibleOperations.contains(requestBodyDto.getOperation())) {
 
@@ -51,10 +50,5 @@ public class BasicMathServiceImpl implements MathService {
         responseBodyDto.setRequestId(i);
         responseBodyDto.setResponseId(i1);
         return responseBodyDto;
-    }
-
-    @Override
-    public ResponseBodyDto getWithId(int id) {
-        return daoService.getResponseWithId(id);
     }
 }
