@@ -1,11 +1,13 @@
 package com.example.springaopspring.services;
 
-import com.example.springaopspring.models.entities.RequestBodyEntity;
-import com.example.springaopspring.models.entities.ResponseBodyEntity;
+import com.example.springaopspring.models.dto.RequestBodyDto;
+import com.example.springaopspring.models.dto.ResponseBodyDto;
 
 public interface DaoService {
 
-    public void saveRequest(RequestBodyEntity requestBodyEntity);
+    public int saveRequest(RequestBodyDto requestBodyDto);
 
-    public void saveResponse(ResponseBodyEntity responseBodyEntity);
+    public int saveResponse(ResponseBodyDto  responseBodyDto, int i);
+
+    ResponseBodyDto getResponseWithId(int id);
 }

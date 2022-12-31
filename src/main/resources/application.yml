@@ -3,6 +3,14 @@ spring:
     password: Mo7120101038
     url: jdbc:postgresql://localhost:5432/SalamAop
     username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL81Dialect
+        format_sql: false
+    show-sql: true
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

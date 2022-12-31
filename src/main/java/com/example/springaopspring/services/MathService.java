@@ -6,4 +6,6 @@ import com.example.springaopspring.models.dto.ResponseBodyDto;
 public interface MathService {
 
     public ResponseBodyDto doMath(RequestBodyDto requestBodyDto);
+
+    ResponseBodyDto getWithId(int id);
 }

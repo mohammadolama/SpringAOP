@@ -18,6 +18,8 @@ public class ResponseBodyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    int requestId;
+
     String status;
 
     String message;

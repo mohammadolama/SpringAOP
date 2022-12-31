@@ -19,8 +19,13 @@ public class MathematicsController {
         this.mathService = mathService;
     }
 
-    @PostMapping("api/v1/basicMath")
+    @PostMapping("api/v1/doMath")
     public ResponseBodyDto doMath(@RequestBody RequestBodyDto requestBodyDto){
         return mathService.doMath(requestBodyDto);
+    }
+
+    @GetMapping("api/v1/getResultWithId")
+    public ResponseBodyDto getWithId(int id){
+        return mathService.getWithId(id);
     }
 }

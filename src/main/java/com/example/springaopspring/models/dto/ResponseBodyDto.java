@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class ResponseBodyDto {
 
-    String requestId;
-    String responseId;
+    int requestId;
+    int responseId;
     String status;
     String message;
     double result;
