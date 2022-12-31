@@ -14,4 +14,8 @@ public interface DaoService {
     Message getResponseWithId(int id);
 
     Message getRequestWithId(int id);
+
+    Message deleteRequestById(int id);
+
+    Message deleteResponseById(int id);
 }

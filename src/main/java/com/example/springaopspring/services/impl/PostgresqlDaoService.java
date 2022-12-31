@@ -68,4 +68,27 @@ public class PostgresqlDaoService implements DaoService {
         }
         return requestMapper.mapFromDomainModel(entity.get());
     }
+
+    @Override
+    public Message deleteRequestById(int id) {
+        boolean b = requestsRepository.existsById(id);
+        if (b){
+            requestsRepository.deleteById(id);
+            return new ErrorMessage("Success" , String.format("Request with id %d has been deleted." , id));
+        }else {
+            return new ErrorMessage("NOT FOUND" , String.format("Request with id %d does not exist." , id));
+        }
+    }
+
+    @Override
+    public Message deleteResponseById(int id) {
+
+        boolean b = responseRepository.existsById(id);
+        if (b){
+            responseRepository.deleteById(id);
+            return new ErrorMessage("Success" , String.format("Request with id %d has been deleted." , id));
+        }else {
+            return new ErrorMessage("NOT FOUND" , String.format("Request with id %d does not exist." , id));
+        }
+    }
 }

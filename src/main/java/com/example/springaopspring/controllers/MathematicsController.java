@@ -35,4 +35,16 @@ public class MathematicsController {
     public Message getRequestById(int id){
         return daoService.getRequestWithId(id);
     }
+
+    @DeleteMapping("api/v1/deleteRequestById")
+    public Message deleteRequestById(int id){
+        return daoService.deleteRequestById(id);
+    }
+
+    @DeleteMapping("api/v1/deleteResponseById")
+    public Message deleteResponseById(int id){
+        return daoService.deleteResponseById(id);
+    }
+
+
 }
