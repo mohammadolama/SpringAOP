@@ -14,3 +14,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://salam.mahsan.co/iam/keys
+          audiences: emm

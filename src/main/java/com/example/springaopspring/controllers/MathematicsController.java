@@ -9,7 +9,7 @@ import com.example.springaopspring.services.MathService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("api/v1/")
 public class MathematicsController {
 
     private final MathService mathService;
@@ -21,33 +21,33 @@ public class MathematicsController {
         this.daoService = daoService;
     }
 
-    @PostMapping("api/v1/doMath")
+    @PostMapping("doMath")
     public Message doMath(@RequestBody RequestBodyDto requestBodyDto){
         return mathService.doMath(requestBodyDto);
     }
 
-    @GetMapping("api/v1/getResultById")
+    @GetMapping("getResultById")
     public Message getResponseById(int id){
         return daoService.getResponseWithId(id);
     }
 
-    @GetMapping("api/v1/getRequestById")
+    @GetMapping("getRequestById")
     public Message getRequestById(int id){
         return daoService.getRequestWithId(id);
     }
 
-    @DeleteMapping("api/v1/deleteRequestById")
+    @DeleteMapping("deleteRequestById")
     public Message deleteRequestById(int id){
         return daoService.deleteRequestById(id);
     }
 
-    @DeleteMapping("api/v1/deleteResponseById")
+    @DeleteMapping("deleteResponseById")
     public Message deleteResponseById(int id){
         return daoService.deleteResponseById(id);
     }
 
 
-    @PutMapping("api/v1/updateRequestById")
+    @PutMapping("updateRequestById")
     public Message updateRequestById(@RequestBody RequestBodyDto requestBodyDto , int id){
         return daoService.updateRequest(requestBodyDto , id);
     }

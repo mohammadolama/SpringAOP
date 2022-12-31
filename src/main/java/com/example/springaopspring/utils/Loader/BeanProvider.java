@@ -7,6 +7,8 @@ import com.example.springaopspring.models.dto.request.RequestBodyDto;
 import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
 import com.example.springaopspring.models.entities.RequestBodyEntity;
 import com.example.springaopspring.models.entities.ResponseBodyEntity;
+import com.example.springaopspring.services.DaoService;
+import com.example.springaopspring.services.impl.PostgresqlDaoService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -22,4 +24,5 @@ public class BeanProvider {
     public DomainMapper<SuccessFulResponseDto, ResponseBodyEntity> responseMapper(){
         return new ResponseMapper();
     }
+
 }

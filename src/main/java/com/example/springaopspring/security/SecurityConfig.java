@@ -17,12 +17,16 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .anyRequest().permitAll()
+                .antMatchers("/swagger-ui/").permitAll()
+                .mvcMatchers("/api/v1/**").authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .cors().and()
                 .exceptionHandling((e) -> e.accessDeniedPage("/access-denied"));
         http
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .oauth2ResourceServer().jwt();
 
         return http.build();
     }
