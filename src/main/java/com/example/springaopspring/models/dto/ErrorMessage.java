@@ -6,12 +6,11 @@ import lombok.Data;
 @Data
 public class ErrorMessage extends Message {
 
-    String status;
-    String message;
 
+    public ErrorMessage() {
+    }
 
     public ErrorMessage(String status, String message) {
-        this.status = status;
-        this.message = message;
+        super(status, message);
     }
 }

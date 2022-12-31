@@ -13,6 +13,7 @@ import com.example.springaopspring.models.entities.ResponseBodyEntity;
 import com.example.springaopspring.services.DaoService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -22,7 +23,7 @@ public class PostgresqlDaoService implements DaoService {
 
     private final PostgresResponseRepository responseRepository;
 
-    private final DomainMapper<RequestBodyDto , RequestBodyEntity> requestMapper;
+    private final DomainMapper<RequestBodyDto, RequestBodyEntity> requestMapper;
 
     private final DomainMapper<SuccessFulResponseDto, ResponseBodyEntity> responseMapper;
 
@@ -52,9 +53,9 @@ public class PostgresqlDaoService implements DaoService {
     public Message getResponseWithId(int id) {
         Optional<ResponseBodyEntity> entity = responseRepository.findById(id);
 
-        if (entity.isEmpty()){
-            return new ErrorMessage("NOT FOUND" , String.format("Response with id %d does not exist." , id));
-        }else {
+        if (entity.isEmpty()) {
+            return new ErrorMessage("NOT FOUND", String.format("Response with id %d does not exist.", id));
+        } else {
             return responseMapper.mapFromDomainModel(entity.get());
 
         }
@@ -63,8 +64,8 @@ public class PostgresqlDaoService implements DaoService {
     @Override
     public Message getRequestWithId(int id) {
         Optional<RequestBodyEntity> entity = requestsRepository.findById(id);
-        if (entity.isEmpty()){
-            return new ErrorMessage("NOT FOUND" , String.format("Request with id %d does not exist." , id));
+        if (entity.isEmpty()) {
+            return new ErrorMessage("NOT FOUND", String.format("Request with id %d does not exist.", id));
         }
         return requestMapper.mapFromDomainModel(entity.get());
     }
@@ -72,11 +73,11 @@ public class PostgresqlDaoService implements DaoService {
     @Override
     public Message deleteRequestById(int id) {
         boolean b = requestsRepository.existsById(id);
-        if (b){
+        if (b) {
             requestsRepository.deleteById(id);
-            return new ErrorMessage("Success" , String.format("Request with id %d has been deleted." , id));
-        }else {
-            return new ErrorMessage("NOT FOUND" , String.format("Request with id %d does not exist." , id));
+            return new ErrorMessage("Success", String.format("Request with id %d has been deleted.", id));
+        } else {
+            return new ErrorMessage("NOT FOUND", String.format("Request with id %d does not exist.", id));
         }
     }
 
@@ -84,11 +85,36 @@ public class PostgresqlDaoService implements DaoService {
     public Message deleteResponseById(int id) {
 
         boolean b = responseRepository.existsById(id);
-        if (b){
+        if (b) {
             responseRepository.deleteById(id);
-            return new ErrorMessage("Success" , String.format("Request with id %d has been deleted." , id));
+            return new ErrorMessage("Success", String.format("Request with id %d has been deleted.", id));
+        } else {
+            return new ErrorMessage("NOT FOUND", String.format("Request with id %d does not exist.", id));
+        }
+    }
+
+    @Override
+    public Message updateRequest(RequestBodyDto requestBodyDto, int id) {
+        final boolean[] updated = {false};
+        String updateString = "The request has benn successfully updated.";
+        String errorString = "Your Request was not found in the database.";
+        requestsRepository.findById(id)
+                .map(req -> {
+                    req.setUsername(requestBodyDto.getUsername());
+                    req.setFirstNumber(requestBodyDto.getFirstNumber());
+                    req.setSecondNumber(requestBodyDto.getSecondNumber());
+                    req.setInstructions(requestBodyDto.getOperation());
+                    req.setModifiedAt(LocalDateTime.now());
+                    updated[0] = true;
+                    return requestsRepository.save(req);
+                });
+        if (updated[0]){
+            RequestBodyDto requestBodyDto1 = requestMapper.mapFromDomainModel(requestsRepository.findById(id).get());
+            requestBodyDto1.setStatus("OK");
+            requestBodyDto1.setMessage(updateString);
+            return requestBodyDto1;
         }else {
-            return new ErrorMessage("NOT FOUND" , String.format("Request with id %d does not exist." , id));
+            return new ErrorMessage("NOT FOUND", errorString);
         }
     }
 }

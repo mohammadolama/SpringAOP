@@ -22,7 +22,7 @@ public class MathematicsController {
     }
 
     @PostMapping("api/v1/doMath")
-    public SuccessFulResponseDto doMath(@RequestBody RequestBodyDto requestBodyDto){
+    public Message doMath(@RequestBody RequestBodyDto requestBodyDto){
         return mathService.doMath(requestBodyDto);
     }
 
@@ -46,5 +46,10 @@ public class MathematicsController {
         return daoService.deleteResponseById(id);
     }
 
+
+    @PutMapping("api/v1/updateRequestById")
+    public Message updateRequestById(@RequestBody RequestBodyDto requestBodyDto , int id){
+        return daoService.updateRequest(requestBodyDto , id);
+    }
 
 }

@@ -8,15 +8,13 @@ import lombok.Data;
 public abstract class Response extends Message {
 
     int requestId;
-    String status;
-    String message;
 
     public Response() {
     }
 
-    public Response(int requestId, String status, String message) {
+    public Response(String status, String message, int requestId) {
+        super(status, message);
         this.requestId = requestId;
-        this.status = status;
-        this.message = message;
     }
+
 }

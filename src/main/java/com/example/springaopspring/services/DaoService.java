@@ -18,4 +18,6 @@ public interface DaoService {
     Message deleteRequestById(int id);
 
     Message deleteResponseById(int id);
+
+    Message updateRequest(RequestBodyDto requestBodyDto , int id);
 }
