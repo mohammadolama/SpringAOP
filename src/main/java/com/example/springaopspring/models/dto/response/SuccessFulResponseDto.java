@@ -8,4 +8,6 @@ public class SuccessFulResponseDto extends Response {
     int responseId;
     double result;
 
+
+
 }
