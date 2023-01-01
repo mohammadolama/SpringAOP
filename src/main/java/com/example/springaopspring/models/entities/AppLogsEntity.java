@@ -20,10 +20,22 @@ public class AppLogsEntity {
     private String username;
     private String url;
     private String requestBody;
-    private String httpStatusCode;
+    private int httpStatusCode;
     private LocalDateTime localDateTime;
     private String responseBody;
     private String httpMethod;
 
 
+    public AppLogsEntity(String username, String url, String requestBody, int httpStatusCode, LocalDateTime localDateTime, String responseBody, String httpMethod) {
+        this.username = username;
+        this.url = url;
+        this.requestBody = requestBody;
+        this.httpStatusCode = httpStatusCode;
+        this.localDateTime = localDateTime;
+        this.responseBody = responseBody;
+        this.httpMethod = httpMethod;
+    }
+
+    public AppLogsEntity() {
+    }
 }
