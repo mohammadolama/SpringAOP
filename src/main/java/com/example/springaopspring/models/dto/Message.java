@@ -2,8 +2,10 @@ package com.example.springaopspring.models.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public abstract class Message {
+public abstract class Message implements Serializable {
     String status;
     String message;
 

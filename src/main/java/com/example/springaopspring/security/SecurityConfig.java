@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/").permitAll()
                 .mvcMatchers("/api/v1/**").authenticated()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .cors().and()
                 .exceptionHandling((e) -> e.accessDeniedPage("/access-denied"));

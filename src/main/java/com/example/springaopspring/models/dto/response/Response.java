@@ -12,10 +12,13 @@ public abstract class Response extends Message {
     public Response() {
     }
 
+
     public Response(String status, String message, int requestId) {
         super(status, message);
         this.requestId = requestId;
     }
 
-
+    public Response(int requestId) {
+        this.requestId = requestId;
+    }
 }

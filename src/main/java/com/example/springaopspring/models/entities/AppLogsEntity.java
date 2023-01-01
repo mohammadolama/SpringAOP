@@ -1,17 +1,25 @@
 package com.example.springaopspring.models.entities;
 
 
+import com.example.springaopspring.models.dto.Message;
+import com.example.springaopspring.models.dto.request.RequestBodyDto;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Data;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class AppLogsEntity {
+@TypeDefs({
+        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
+public class AppLogsEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,22 +27,20 @@ public class AppLogsEntity {
 
     private String username;
     private String url;
-    private String requestBody;
+
+    @Column(columnDefinition = "jsonb")
+    @Type(type = "jsonb")
+    private RequestBodyDto requestBody;
+
+
     private int httpStatusCode;
     private LocalDateTime localDateTime;
-    private String responseBody;
+
+    @Column(columnDefinition = "jsonb")
+    @Type(type = "jsonb")
+    private Message responseBody;
+
     private String httpMethod;
-
-
-    public AppLogsEntity(String username, String url, String requestBody, int httpStatusCode, LocalDateTime localDateTime, String responseBody, String httpMethod) {
-        this.username = username;
-        this.url = url;
-        this.requestBody = requestBody;
-        this.httpStatusCode = httpStatusCode;
-        this.localDateTime = localDateTime;
-        this.responseBody = responseBody;
-        this.httpMethod = httpMethod;
-    }
 
     public AppLogsEntity() {
     }

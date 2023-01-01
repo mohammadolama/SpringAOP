@@ -4,6 +4,7 @@ import com.example.springaopspring.models.dto.Message;
 import com.example.springaopspring.models.dto.request.RequestBodyDto;
 import com.example.springaopspring.models.entities.AppLogsEntity;
 import com.example.springaopspring.services.AppLogService;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Aspect
 @Component
@@ -35,11 +37,15 @@ public class AspectConfig {
     public void allMethodsPointcut(){}
 
 
-    @Around("allMethodsPointcut()")
+    @Pointcut("execution(* com.example.springaopspring.controllers.MathematicsController.postMath(*))")
+    public void postMath(){}
+
+    @Around("postMath()")
     public Object allServiceMethodsAdvice(ProceedingJoinPoint proceedingJoinPoint) {
         try {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
+            log.info(proceedingJoinPoint.getArgs()[0].toString());
             String username = ((RequestBodyDto) proceedingJoinPoint.getArgs()[0]).getUsername();
             String uri = request.getRequestURI();
             RequestBodyDto bodyDto = (RequestBodyDto) proceedingJoinPoint.getArgs()[0];
@@ -61,8 +67,8 @@ public class AspectConfig {
             appLogsEntity.setHttpMethod(method);
             appLogsEntity.setUrl(uri);
             appLogsEntity.setUsername(username);
-            appLogsEntity.setRequestBody(bodyDto.toString());
-            appLogsEntity.setResponseBody(responseMessage.toString());
+            appLogsEntity.setRequestBody(bodyDto);
+            appLogsEntity.setResponseBody(responseMessage);
             appLogsEntity.setHttpStatusCode(httpStatusCode);
             appLogsEntity.setLocalDateTime(requestTime);
             appLogService.saveLog(appLogsEntity);

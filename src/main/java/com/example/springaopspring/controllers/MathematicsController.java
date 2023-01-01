@@ -1,9 +1,8 @@
 package com.example.springaopspring.controllers;
 
 import com.example.springaopspring.models.dto.Message;
+import com.example.springaopspring.models.dto.request.Request;
 import com.example.springaopspring.models.dto.request.RequestBodyDto;
-import com.example.springaopspring.models.dto.response.Response;
-import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
 import com.example.springaopspring.services.DaoService;
 import com.example.springaopspring.services.MathService;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +20,9 @@ public class MathematicsController {
         this.daoService = daoService;
     }
 
-    @PostMapping("doMath")
-    public Message doMath(@RequestBody RequestBodyDto requestBodyDto){
-        return mathService.doMath(requestBodyDto);
+    @PostMapping("postMath")
+    public Message postMath(@RequestBody RequestBodyDto request){
+        return mathService.doMath(request);
     }
 
     @GetMapping("getResultById")
