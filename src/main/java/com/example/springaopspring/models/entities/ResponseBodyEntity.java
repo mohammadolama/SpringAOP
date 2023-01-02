@@ -26,6 +26,8 @@ public class ResponseBodyEntity {
 
     double result;
 
+    String username;
+
     LocalDateTime createdAt = LocalDateTime.now();
 
     LocalDateTime modifiedAt = LocalDateTime.now();

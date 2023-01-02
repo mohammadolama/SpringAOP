@@ -24,7 +24,7 @@ public class MathematicsController {
 
     @PostMapping("postMath")
     public Message postMath(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody RequestBodyDto request) {
-        return mathService.doMath(request);
+        return mathService.doMath(request , token);
     }
 
     @GetMapping("getResultById")

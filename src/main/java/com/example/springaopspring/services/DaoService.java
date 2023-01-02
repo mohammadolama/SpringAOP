@@ -6,9 +6,9 @@ import com.example.springaopspring.models.dto.response.ResponseMessage;
 
 public interface DaoService {
 
-    public int saveRequest(RequestBodyDto requestBodyDto);
+    public int saveRequest(RequestBodyDto requestBodyDto, String username);
 
-    public int saveResponse(ResponseMessage responseBodyDto, int i);
+    public int saveResponse(ResponseMessage responseBodyDto, int i, String username);
 
     Message getResponseWithId(int id);
 

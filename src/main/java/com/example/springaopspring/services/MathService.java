@@ -5,6 +5,6 @@ import com.example.springaopspring.models.dto.response.ResponseMessage;
 
 public interface MathService {
 
-    public ResponseMessage doMath(RequestBodyDto requestBodyDto);
+    public ResponseMessage doMath(RequestBodyDto requestBodyDto, String token);
 
 }

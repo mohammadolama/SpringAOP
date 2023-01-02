@@ -10,7 +10,6 @@ public class RequestMapper implements DomainMapper<RequestBodyDto , RequestBodyE
         requestBodyEntity.setInstructions(requestBodyDto.getOperation());
         requestBodyEntity.setFirstNumber(requestBodyDto.getFirstNumber());
         requestBodyEntity.setSecondNumber(requestBodyDto.getSecondNumber());
-        requestBodyEntity.setUsername(requestBodyDto.getUsername());
         return requestBodyEntity;
     }
 
@@ -20,7 +19,6 @@ public class RequestMapper implements DomainMapper<RequestBodyDto , RequestBodyE
         requestBodyDto.setFirstNumber(requestBodyEntity.getFirstNumber());
         requestBodyDto.setSecondNumber(requestBodyEntity.getSecondNumber());
         requestBodyDto.setOperation(requestBodyEntity.getInstructions());
-        requestBodyDto.setUsername(requestBodyEntity.getUsername());
         return requestBodyDto;
     }
 }

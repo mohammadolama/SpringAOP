@@ -3,12 +3,12 @@ package com.example.springaopspring.services.impl;
 import com.example.springaopspring.dao.PostgresRequestsRepository;
 import com.example.springaopspring.dao.PostgresResponseRepository;
 import com.example.springaopspring.dao.mapper.DomainMapper;
-import com.example.springaopspring.models.dto.request.Request;
 import com.example.springaopspring.models.dto.response.*;
 import com.example.springaopspring.models.dto.request.RequestBodyDto;
 import com.example.springaopspring.models.entities.RequestBodyEntity;
 import com.example.springaopspring.models.entities.ResponseBodyEntity;
 import com.example.springaopspring.services.DaoService;
+import com.example.springaopspring.utils.JwtExtractor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,15 +33,18 @@ public class PostgresqlDaoService implements DaoService {
     }
 
     @Override
-    public int saveRequest(RequestBodyDto requestBodyDto) {
-        RequestBodyEntity save = requestsRepository.save(requestMapper.mapToDomainModel(requestBodyDto));
+    public int saveRequest(RequestBodyDto requestBodyDto, String username) {
+        RequestBodyEntity requestBodyEntity = requestMapper.mapToDomainModel(requestBodyDto);
+        requestBodyEntity.setUsername(username);
+        RequestBodyEntity save = requestsRepository.save(requestBodyEntity);
         return save.getId();
     }
 
     @Override
-    public int saveResponse(ResponseMessage responseBodyDto, int i) {
+    public int saveResponse(ResponseMessage responseBodyDto, int i, String username) {
         ResponseBodyEntity responseBodyEntity = responseMapper.mapToDomainModel(responseBodyDto);
         responseBodyEntity.setRequestId(i);
+        responseBodyEntity.setUsername(username);
         ResponseBodyEntity save = responseRepository.save(responseBodyEntity);
         return save.getId();
 
@@ -99,7 +102,6 @@ public class PostgresqlDaoService implements DaoService {
         String errorString = "Your Request was not found in the database.";
         requestsRepository.findById(id)
                 .map(req -> {
-                    req.setUsername(requestBodyDto.getUsername());
                     req.setFirstNumber(requestBodyDto.getFirstNumber());
                     req.setSecondNumber(requestBodyDto.getSecondNumber());
                     req.setInstructions(requestBodyDto.getOperation());
