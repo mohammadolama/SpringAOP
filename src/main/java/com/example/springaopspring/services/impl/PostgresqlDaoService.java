@@ -3,11 +3,9 @@ package com.example.springaopspring.services.impl;
 import com.example.springaopspring.dao.PostgresRequestsRepository;
 import com.example.springaopspring.dao.PostgresResponseRepository;
 import com.example.springaopspring.dao.mapper.DomainMapper;
-import com.example.springaopspring.models.dto.ErrorMessage;
-import com.example.springaopspring.models.dto.Message;
+import com.example.springaopspring.models.dto.request.Request;
+import com.example.springaopspring.models.dto.response.*;
 import com.example.springaopspring.models.dto.request.RequestBodyDto;
-import com.example.springaopspring.models.dto.response.Response;
-import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
 import com.example.springaopspring.models.entities.RequestBodyEntity;
 import com.example.springaopspring.models.entities.ResponseBodyEntity;
 import com.example.springaopspring.services.DaoService;
@@ -25,9 +23,9 @@ public class PostgresqlDaoService implements DaoService {
 
     private final DomainMapper<RequestBodyDto, RequestBodyEntity> requestMapper;
 
-    private final DomainMapper<SuccessFulResponseDto, ResponseBodyEntity> responseMapper;
+    private final DomainMapper<ResponseMessage, ResponseBodyEntity> responseMapper;
 
-    public PostgresqlDaoService(PostgresRequestsRepository requestsRepository, PostgresResponseRepository responseRepository, DomainMapper<RequestBodyDto, RequestBodyEntity> requestMapper, DomainMapper<SuccessFulResponseDto, ResponseBodyEntity> responseMapper) {
+    public PostgresqlDaoService(PostgresRequestsRepository requestsRepository, PostgresResponseRepository responseRepository, DomainMapper<RequestBodyDto, RequestBodyEntity> requestMapper, DomainMapper<ResponseMessage, ResponseBodyEntity> responseMapper) {
         this.requestsRepository = requestsRepository;
         this.responseRepository = responseRepository;
         this.requestMapper = requestMapper;
@@ -41,7 +39,7 @@ public class PostgresqlDaoService implements DaoService {
     }
 
     @Override
-    public int saveResponse(SuccessFulResponseDto responseBodyDto, int i) {
+    public int saveResponse(ResponseMessage responseBodyDto, int i) {
         ResponseBodyEntity responseBodyEntity = responseMapper.mapToDomainModel(responseBodyDto);
         responseBodyEntity.setRequestId(i);
         ResponseBodyEntity save = responseRepository.save(responseBodyEntity);
@@ -67,7 +65,8 @@ public class PostgresqlDaoService implements DaoService {
         if (entity.isEmpty()) {
             return new ErrorMessage("NOT FOUND", String.format("Request with id %d does not exist.", id));
         }
-        return requestMapper.mapFromDomainModel(entity.get());
+        return new RequestMessage("OK" , String.format("Request with id %d has been found.", id),
+                requestMapper.mapFromDomainModel(entity.get()));
     }
 
     @Override
@@ -75,7 +74,7 @@ public class PostgresqlDaoService implements DaoService {
         boolean b = requestsRepository.existsById(id);
         if (b) {
             requestsRepository.deleteById(id);
-            return new ErrorMessage("Success", String.format("Request with id %d has been deleted.", id));
+            return new SuccessMessage("Success", String.format("Request with id %d has been deleted.", id));
         } else {
             return new ErrorMessage("NOT FOUND", String.format("Request with id %d does not exist.", id));
         }
@@ -87,7 +86,7 @@ public class PostgresqlDaoService implements DaoService {
         boolean b = responseRepository.existsById(id);
         if (b) {
             responseRepository.deleteById(id);
-            return new ErrorMessage("Success", String.format("Request with id %d has been deleted.", id));
+            return new SuccessMessage("Success", String.format("Request with id %d has been deleted.", id));
         } else {
             return new ErrorMessage("NOT FOUND", String.format("Request with id %d does not exist.", id));
         }
@@ -110,9 +109,7 @@ public class PostgresqlDaoService implements DaoService {
                 });
         if (updated[0]){
             RequestBodyDto requestBodyDto1 = requestMapper.mapFromDomainModel(requestsRepository.findById(id).get());
-            requestBodyDto1.setStatus("OK");
-            requestBodyDto1.setMessage(updateString);
-            return requestBodyDto1;
+            return new UpdateRequestMessage("OK" , updateString , requestBodyDto1);
         }else {
             return new ErrorMessage("NOT FOUND", errorString);
         }

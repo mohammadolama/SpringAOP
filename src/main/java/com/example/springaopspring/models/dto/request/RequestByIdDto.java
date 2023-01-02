@@ -3,7 +3,7 @@ package com.example.springaopspring.models.dto.request;
 import lombok.Data;
 
 @Data
-public class RequestByIdDto extends Request{
+public class RequestByIdDto extends Request {
 
     int id;
 

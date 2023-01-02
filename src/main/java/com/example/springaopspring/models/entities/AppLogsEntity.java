@@ -1,10 +1,9 @@
 package com.example.springaopspring.models.entities;
 
 
-import com.example.springaopspring.models.dto.Message;
+import com.example.springaopspring.models.dto.response.Message;
 import com.example.springaopspring.models.dto.request.RequestBodyDto;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;

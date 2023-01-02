@@ -1,6 +1,6 @@
-package com.example.springaopspring.models.dto;
+package com.example.springaopspring.models.dto.response;
 
-import com.example.springaopspring.models.dto.Message;
+import com.example.springaopspring.models.dto.response.Message;
 import lombok.Data;
 
 @Data

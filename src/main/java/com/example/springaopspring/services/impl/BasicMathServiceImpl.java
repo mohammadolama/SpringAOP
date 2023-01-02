@@ -1,9 +1,7 @@
 package com.example.springaopspring.services.impl;
 
-import com.example.springaopspring.models.dto.ErrorMessage;
-import com.example.springaopspring.models.dto.Message;
 import com.example.springaopspring.models.dto.request.RequestBodyDto;
-import com.example.springaopspring.models.dto.response.SuccessFulResponseDto;
+import com.example.springaopspring.models.dto.response.ResponseMessage;
 import com.example.springaopspring.services.DaoService;
 import com.example.springaopspring.services.MathService;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,8 @@ public class BasicMathServiceImpl implements MathService {
         this.daoService = daoService;
     }
 
-    public SuccessFulResponseDto doMath(RequestBodyDto requestBodyDto) {
-        SuccessFulResponseDto responseBodyDto = new SuccessFulResponseDto();
+    public ResponseMessage doMath(RequestBodyDto requestBodyDto) {
+        ResponseMessage responseBodyDto = new ResponseMessage();
 
         if (possibleOperations.contains(requestBodyDto.getOperation())) {
 

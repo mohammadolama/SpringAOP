@@ -27,7 +27,6 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .oauth2ResourceServer().jwt();
-
         return http.build();
     }
 }

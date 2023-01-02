@@ -1,4 +1,4 @@
-package com.example.springaopspring.models.dto;
+package com.example.springaopspring.models.dto.response;
 
 import lombok.Data;
 

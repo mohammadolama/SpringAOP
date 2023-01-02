@@ -1,14 +1,16 @@
 package com.example.springaopspring.controllers;
 
-import com.example.springaopspring.models.dto.Message;
-import com.example.springaopspring.models.dto.request.Request;
+import com.example.springaopspring.models.dto.response.Message;
 import com.example.springaopspring.models.dto.request.RequestBodyDto;
 import com.example.springaopspring.services.DaoService;
 import com.example.springaopspring.services.MathService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/")
+@SecurityRequirement(name = "javainuseapi")
 public class MathematicsController {
 
     private final MathService mathService;
@@ -21,34 +23,34 @@ public class MathematicsController {
     }
 
     @PostMapping("postMath")
-    public Message postMath(@RequestBody RequestBodyDto request){
+    public Message postMath(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody RequestBodyDto request) {
         return mathService.doMath(request);
     }
 
     @GetMapping("getResultById")
-    public Message getResponseById(int id){
+    public Message getResponseById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, int id) {
         return daoService.getResponseWithId(id);
     }
 
     @GetMapping("getRequestById")
-    public Message getRequestById(int id){
+    public Message getRequestById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, int id) {
         return daoService.getRequestWithId(id);
     }
 
     @DeleteMapping("deleteRequestById")
-    public Message deleteRequestById(int id){
+    public Message deleteRequestById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, int id) {
         return daoService.deleteRequestById(id);
     }
 
     @DeleteMapping("deleteResponseById")
-    public Message deleteResponseById(int id){
+    public Message deleteResponseById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, int id) {
         return daoService.deleteResponseById(id);
     }
 
 
     @PutMapping("updateRequestById")
-    public Message updateRequestById(@RequestBody RequestBodyDto requestBodyDto , int id){
-        return daoService.updateRequest(requestBodyDto , id);
+    public Message updateRequestById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody RequestBodyDto requestBodyDto, int id) {
+        return daoService.updateRequest(requestBodyDto, id);
     }
 
 }
