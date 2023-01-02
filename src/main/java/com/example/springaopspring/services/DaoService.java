@@ -19,4 +19,12 @@ public interface DaoService {
     Message deleteResponseById(int id);
 
     Message updateRequest(RequestBodyDto requestBodyDto , int id);
+    Message updateResponse(double responseMessage , int id);
+
+
+    boolean isRequestAvailable(int id);
+
+    boolean isResponseAvailable(int id);
+
+
 }

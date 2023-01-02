@@ -50,7 +50,8 @@ public class MathematicsController {
 
     @PutMapping("updateRequestById")
     public Message updateRequestById(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody RequestBodyDto requestBodyDto, int id) {
-        return daoService.updateRequest(requestBodyDto, id);
+        return mathService.updateRequest(requestBodyDto ,token ,  id);
+//        return daoService.updateRequest(requestBodyDto, id);
     }
 
 }

@@ -8,7 +8,6 @@ import com.example.springaopspring.models.dto.request.RequestBodyDto;
 import com.example.springaopspring.models.entities.RequestBodyEntity;
 import com.example.springaopspring.models.entities.ResponseBodyEntity;
 import com.example.springaopspring.services.DaoService;
-import com.example.springaopspring.utils.JwtExtractor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -115,5 +114,34 @@ public class PostgresqlDaoService implements DaoService {
         }else {
             return new ErrorMessage("NOT FOUND", errorString);
         }
+    }
+
+    @Override
+    public Message updateResponse(double result, int id) {
+        final boolean[] updated = {false};
+        String updateString = "The request has benn successfully updated.";
+        String errorString = "Your Request was not found in the database.";
+        responseRepository.findById(id)
+                        .map(req ->{
+                            req.setResult(result);
+                            updated[0] = true;
+                            return responseRepository.save(req);
+                        });
+        if (updated[0]){
+            RequestBodyDto requestBodyDto1 = requestMapper.mapFromDomainModel(requestsRepository.findById(id).get());
+            return new UpdateRequestMessage("OK" , updateString , requestBodyDto1);
+        }else {
+            return new ErrorMessage("NOT FOUND", errorString);
+        }
+    }
+
+    @Override
+    public boolean isRequestAvailable(int id) {
+        return requestsRepository.existsById(id);
+    }
+
+    @Override
+    public boolean isResponseAvailable(int id) {
+        return responseRepository.existsById(id);
     }
 }
